@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="zh-CN" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
+    <title>web socket</title>
+
+    <script th:src="@{/js/jquery-3.3.1.min.js}" src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+
+    <script type="text/javascript">
+        $(document).ready(function() {
+            websocket_client();
+        });
+
+        function websocket_client() {
+            var url = "ws://localhost:8080/webSocketIMServer?clientId=" + "zhx";
+            var sock = new WebSocket(url);
+            // 以下的 open(), onmessage(), onclose()
+            // 对应到 ChatTextHandler 的
+            // afterConnectionEstablished(), handleTextMessage(), afterConnectionClosed();
+
+            sock.onopen = function() {
+                alert("open successfully.");
+                sayMarco();
+            };
+
+            sock.onmessage = function(e) {
+                alert("onmessage");
+                alert(e.data);
+            };
+
+            sock.onclose = function() {
+                alert("close");
+            };
+
+            function sayMarco() {
+                sock.send("我是客户端发送的消息");
+            }
+        }
+    </script>
+</head>
+
+<body>
+<div id="websocket">
+    websocket div.
+</div>
+</body>
+</html>
