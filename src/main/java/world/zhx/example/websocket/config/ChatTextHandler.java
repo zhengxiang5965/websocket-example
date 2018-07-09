@@ -8,22 +8,22 @@ import org.springframework.web.socket.WebSocketSession;
 import org.springframework.web.socket.handler.TextWebSocketHandler;
 
 import java.io.IOException;
-import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
+import java.util.concurrent.ConcurrentHashMap;
 
 @Slf4j
 public class ChatTextHandler extends TextWebSocketHandler {
 
 
-    //在线用户列表
+    //在线客户端列表
     private static final Map<String, WebSocketSession> clients;
 
-    //用户标识
+    //客户端标识
     private static final String CLIENT_ID = "clientId";
 
     static {
-        clients = new HashMap<>();
+        clients = new ConcurrentHashMap<>();
     }
 
 
